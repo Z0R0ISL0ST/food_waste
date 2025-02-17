@@ -1,10 +1,21 @@
 import streamlit as st
 import pandas as pd
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
-# Load model (assuming you saved it using joblib or pickle)
-import joblib
-model = joblib.load('crop_yield_model.pkl')
+# Load data
+df = pd.read_csv('crop_yield_data.csv')
+
+# Features and target
+X = df[['soil_ph', 'temperature', 'humidity', 'fertilizer_amount']]
+y = df['crop_yield']
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train model
+model = LinearRegression()
+model.fit(X_train, y_train)
 
 # Streamlit app
 st.title('Sustainable Agriculture and Food Waste Detection')
@@ -25,5 +36,3 @@ if st.button('Predict Crop Yield'):
     })
     prediction = model.predict(input_data)
     st.write(f'Predicted Crop Yield: {prediction[0]:.2f} units')
-
-# Add more sections for food waste detection if needed
