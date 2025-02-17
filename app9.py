@@ -18,7 +18,7 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 
 # Streamlit app
-st.title('Sustainable Agriculture and Food Waste Detection')
+st.title('Sustainable Agriculture and crop yeild prediction')
 
 # Input fields
 soil_ph = st.number_input('Soil pH', min_value=0.0, max_value=14.0, value=7.0)
